@@ -1,3 +1,4 @@
+#!/bin/python3
 import argparse
 from scapy.layers.http import HTTPRequest
 from scapy.layers.inet import IP
