@@ -20,7 +20,7 @@ class bcolors:
 
 def credentialsSniffing(packet):
     try:
-        if packet.haslayer(HTTPRequest) and packet[HTTPRequest].Method.decode() == "POST":
+        if packet.haslayer(HTTPRequest) and packet[HTTPRequest].Method.decode() == "POST" and packet.haslayer(RAW):
             url = packet[HTTPRequest].Host.decode() + packet[HTTPRequest].Path.decode()
             ipVictim = packet[IP].src
             try:
