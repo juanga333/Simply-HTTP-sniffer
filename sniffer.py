@@ -1,5 +1,7 @@
 #!/bin/python3
 import argparse
+
+from odbc import RAW
 from scapy.layers.http import HTTPRequest
 from scapy.layers.inet import IP
 from scapy.packet import Raw
